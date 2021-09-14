@@ -1,0 +1,10 @@
+#video-grid{
+    display: flex;
+    justify-content: center;
+}
+
+video{
+    height: 500px;
+    width: 300px;
+    margin: 8px;
+}
