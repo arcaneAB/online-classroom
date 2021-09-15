@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
-// const cors = require('cors')
-// app.use(cors())
+
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 const { ExpressPeerServer } = require('peer');
@@ -26,15 +25,13 @@ app.get('/:room', (req, res) => {
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
-    socket.to(roomId).broadcast.emit('user-connected', userId);
-    // messages
+    socket.broadcast.to(roomId).emit('user-connected', userId);
     socket.on('message', (message) => {
-      //send message to the same room
       io.to(roomId).emit('createMessage', message)
   }); 
 
     socket.on('disconnect', () => {
-      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+      socket.broadcast.to(roomId).emit('user-disconnected', userId)
     })
   })
 })
