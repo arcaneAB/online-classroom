@@ -1,10 +1,6 @@
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
-const myPeer = new Peer(undefined, {
-  path: '/peerjs',
-  host: '/',
-  port: '443'
-})
+var myPeer = new Peer()
 let myVideoStream;
 const myVideo = document.createElement('video')
 myVideo.muted = true;
@@ -36,7 +32,7 @@ navigator.mediaDevices.getUserMedia({
     }
   });
   socket.on("createMessage", message => {
-    $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);
+    $("ul").append(`<li class="message"><b>Student</b><br/>${message}</li>`);
     scrollToBottom()
   })
 })
